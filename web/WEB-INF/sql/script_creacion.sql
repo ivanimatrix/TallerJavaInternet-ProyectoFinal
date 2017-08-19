@@ -90,3 +90,13 @@ create table trabajo(
   CONSTRAINT fk_revision FOREIGN KEY (fk_revision_trabajo) REFERENCES revision(id_revision),
   CONSTRAINT fk_mecanico_trabajo FOREIGN KEY (fk_mecanico_trabajo) REFERENCES mecanico(id_mecanico)
 ) default charset=utf8 auto_increment=1;
+
+
+create table formulario_contacto(
+    id_contacto serial not null primary key,
+    nombres_contacto varchar(100) not null,
+    apellidos_contacto varchar(100) not null,
+    email_contacto varchar(100) default null,
+    telefono_contacto varchar(100) default null,
+    mensaje_contacto text not null
+) default charset=utf8 auto_increment=1;
