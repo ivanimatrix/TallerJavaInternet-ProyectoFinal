@@ -20,15 +20,14 @@ var Login = {
             $(btn).html(btnText).prop('disabled',false);
         }else{
             
-            var formulario = $(form).serializeArray();
             $.ajax({
-                url : '/Biblioteca/LoginUsuario',
-                data : formulario,
+                url : '/ProyectoTallerMecanico/UsuarioController',
+                data : $(form).serializeArray(),
                 dataType : 'json',
                 type : 'post',
                 success : function(response){
                     if(response.estado == true){
-                        window.location.href = "/Biblioteca/Menu";
+                        window.location.href = "/ProyectoTallerMecanico/HomeController";
                     }else{
                         $(btn).html(btnText).prop('disabled',false);
                         BootstrapDialog.show({
@@ -44,6 +43,11 @@ var Login = {
                             }]
                         });
                     }
+                },
+                error : function(){
+                    Modal.danger("Error interno", function(){
+                        $(btn).html(btnText).prop('disabled',false);
+                    });
                 }
             });
         }

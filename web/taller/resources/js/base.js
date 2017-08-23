@@ -15,3 +15,17 @@ function fechaActual(){
     }
     return f.getDate() + "/" + mes + "/" + f.getFullYear();
 }
+
+
+
+function cerrarSesion(){
+    $.ajax({
+        url : '/ProyectoTallerMecanico/UsuarioController',
+        data : {action : 'logoutUsuario'},
+        type : 'post',
+        dataType : 'json',
+        success : function(response){
+            window.location.href = response.redirect;
+        }
+    });
+}

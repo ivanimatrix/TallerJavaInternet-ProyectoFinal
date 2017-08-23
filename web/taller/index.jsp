@@ -2,8 +2,22 @@
 <!DOCTYPE html>
 <html>
 
-    <%@include file="views/head.html" %>
+    <head>
+        <title>Taller Java Internet :: Proyecto Final</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="resources/css/theme-cosmo.bootstrap.min.css" rel="stylesheet" />
+        <link href="resources/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="resources/css/bootstrap-dialog.min.css" rel="stylesheet" />
+        <link href="resources/css/style.css" rel="stylesheet" />
 
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+        <script src="resources/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+        <script src="resources/js/bootstrap-dialog.min.js"></script>
+        <script src="resources/js/modal.js"></script>
+        <script src="resources/js/base.js"></script>
+    </head>
+    
     <body>
 
         <!-- contenedor principal -->
@@ -16,6 +30,7 @@
 
                     <div class="panel-body">
                         <form role="form">
+                            <input type="hidden" name="action" value="loginUsuario" />
                             <div class="alert alert-danger hidden" id="contenedor-mensaje-error">
                                 <a class="close" data-dismiss="alert" href="#">×</a><span id="mensaje-error"></span>
                             </div>
