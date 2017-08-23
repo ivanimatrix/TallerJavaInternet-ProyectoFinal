@@ -1,0 +1,21 @@
+body{
+    background-color: #FAFAFA !important;
+}
+
+footer{
+    margin-top:25px;
+    background-color:#ccc;
+    font-size:10px;
+    color: #555;
+    display: block;
+    padding:15px 10px;
+    text-align: right;
+}
+
+.no-resize{resize: none}
+.top-spaced{margin-top: 15px !important}
+.bottom-spaced{margin-bottom: 15px !important}
+
+.caja-inicio{height: 250px !important}
+
+.caja-inicio img{float:left; margin-right: 10px; margin-bottom: 10px;}
