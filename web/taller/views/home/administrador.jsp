@@ -17,7 +17,7 @@
                     <div class="alert alert-warning">
                         <h4>Clientes</h4>
                         <i class="fa fa-users fa-5x"></i>
-                        <span class="badge pull-right fa-5x">55</span>
+                        <span class="badge pull-right fa-5x"><%=request.getAttribute("total_clientes")%></span>
                     </div>
                 </div>
             </div>

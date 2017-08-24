@@ -5,8 +5,10 @@
  */
 package controllers;
 
+import DAO.ClienteDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +39,17 @@ public class HomeController extends HttpServlet {
         
         switch (user.getPerfil_usuario()) {
             case 1:
+                int total_clientes = 0;
+                try{
+                    ClienteDAOImpl clienteDAO = new ClienteDAOImpl();
+                    total_clientes = clienteDAO.contarClientes();
+                }catch(SQLException e){
+                    System.out.println(e.getMessage());
+                }
+                
+                System.out.println("Total clientes: " + total_clientes);
+                
+                request.setAttribute("total_clientes", total_clientes);
                 request.getRequestDispatcher("taller/views/home/administrador.jsp").forward(request, response);
                 break;
             case 2:
@@ -64,7 +77,7 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
@@ -78,7 +91,7 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
