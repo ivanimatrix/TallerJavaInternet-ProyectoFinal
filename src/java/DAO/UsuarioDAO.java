@@ -16,6 +16,10 @@ import models.UsuarioDTO;
 public interface UsuarioDAO {
 	
 	public int insert(UsuarioDTO usuario) throws SQLException;
+        
+        public int update(UsuarioDTO usuario) throws SQLException;
+        
+        public int delete(int id_usuario) throws SQLException;
 	
 	public List<UsuarioDTO> select() throws SQLException;
         

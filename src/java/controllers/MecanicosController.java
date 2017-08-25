@@ -5,25 +5,24 @@
  */
 package controllers;
 
-import DAO.ClienteDAOImpl;
+import DAO.MecanicoDAOImpl;
 import DAO.UsuarioDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.ClienteDTO;
+import models.MecanicoDTO;
 import models.UsuarioDTO;
 
 /**
  *
  * @author ivanimatrix
  */
-public class ClientesController extends HttpServlet {
+public class MecanicosController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,28 +40,28 @@ public class ClientesController extends HttpServlet {
         
         switch(action){
             
-            case "indexClientes" :
-                request.getRequestDispatcher("taller/views/mantenedores/clientes/bandeja_clientes.jsp").forward(request, response);
+            case "indexMecanicos" :
+                request.getRequestDispatcher("taller/views/mantenedores/mecanicos/bandeja_mecanicos.jsp").forward(request, response);
                 break;
                 
-            case "listadoClientes" : 
-                listadoClientes(request, response);
+            case "listadoMecanicos" : 
+                listadoMecanicos(request, response);
                 break;
                 
-            case "nuevoCliente" : 
-                nuevoCliente(request, response);
+            case "nuevoMecanico" : 
+                nuevoMecanico(request, response);
                 break;
                 
-            case "guardarCliente" : 
-                guardarCliente(request, response);
+            case "guardarMecanico" : 
+                guardarMecanico(request, response);
                 break;
                 
-            case "editarCliente" : 
-                editarCliente(request, response);
+            case "editarMecanico" : 
+                editarMecanico(request, response);
                 break;
                 
-            case "eliminarCliente" : 
-                eliminarCliente(request, response);
+            case "eliminarMecanico" : 
+                eliminarMecanico(request, response);
                 break;
                 
         }
@@ -80,9 +79,7 @@ public class ClientesController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         processRequest(request, response);
-        
     }
 
     /**
@@ -96,7 +93,6 @@ public class ClientesController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         processRequest(request, response);
     }
 
@@ -111,77 +107,75 @@ public class ClientesController extends HttpServlet {
     }// </editor-fold>
     
     
-    protected void listadoClientes(HttpServletRequest request, HttpServletResponse response)
+    protected void listadoMecanicos(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         
-        ClienteDAOImpl clienteDAO = new ClienteDAOImpl();
-        List<ClienteDTO> clientes = null;
+        MecanicoDAOImpl mecanicoDAO = new MecanicoDAOImpl();
+        List<MecanicoDTO> mecanicos = null;
         
         try{
-            clientes = clienteDAO.select();
+            mecanicos = mecanicoDAO.select();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
         
         
         response.setContentType("text/html;charset=UTF-8");
-        request.setAttribute("clientes", clientes);
-        request.getRequestDispatcher("taller/views/mantenedores/clientes/grilla_clientes.jsp").forward(request, response);
+        request.setAttribute("mecanicos", mecanicos);
+        request.getRequestDispatcher("taller/views/mantenedores/mecanicos/grilla_mecanicos.jsp").forward(request, response);
         
     }
     
     
     
-    protected void nuevoCliente(HttpServletRequest request, HttpServletResponse response)
+    protected void nuevoMecanico(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
-        request.setAttribute("id_cliente", 0);
-        request.getRequestDispatcher("taller/views/mantenedores/clientes/form_cliente.jsp").forward(request, response);
+        request.setAttribute("id_mecanico", 0);
+        request.getRequestDispatcher("taller/views/mantenedores/mecanicos/form_mecanico.jsp").forward(request, response);
     }
     
     
-    protected void guardarCliente(HttpServletRequest request, HttpServletResponse response)
+    protected void guardarMecanico(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl();
         UsuarioDTO usuario = new UsuarioDTO();
-        ClienteDAOImpl clienteDAO = new ClienteDAOImpl();
-        ClienteDTO cliente = new ClienteDTO();
+        MecanicoDAOImpl mecanicoDAO = new MecanicoDAOImpl();
+        MecanicoDTO mecanico = new MecanicoDTO();
         
-        int id_cliente = Integer.parseInt(request.getParameter("id_cliente"));
-        String nombres_cliente = request.getParameter("nombres_cliente");
-        String apellidos_cliente = request.getParameter("apellidos_cliente");
-        String rut_cliente = request.getParameter("rut_cliente");
-        String email_cliente = request.getParameter("email_cliente");
-        String telefono_cliente = request.getParameter("telefono_cliente");
+        int id_mecanico = Integer.parseInt(request.getParameter("id_mecanico"));
+        String nombres = request.getParameter("nombres_mecanico");
+        String apellidos = request.getParameter("apellidos_mecanico");
+        String rut = request.getParameter("rut_mecanico");
+        String especialidad = request.getParameter("especialidad_mecanico");
         
         boolean estado = false;
         String mensaje = "";
         
-        System.out.println(id_cliente);
+        System.out.println(id_mecanico);
         
-        if(id_cliente == 0){
-            String pass_cliente = request.getParameter("pass_cliente");
+        if(id_mecanico == 0){
+            String pass = request.getParameter("pass_mecanico");
             
-            usuario.setRut_usuario(rut_cliente);
-            usuario.setNombres_usuario(nombres_cliente);
-            usuario.setApellidos_usuario(apellidos_cliente);
-            usuario.setPass_usuario(pass_cliente);
-            usuario.setPerfil_usuario(3);
+            usuario.setRut_usuario(rut);
+            usuario.setNombres_usuario(nombres);
+            usuario.setApellidos_usuario(apellidos);
+            usuario.setPass_usuario(pass);
+            usuario.setPerfil_usuario(2);
             
             try{
-                id_cliente = usuarioDAO.insert(usuario);
-                if(id_cliente > 0){
-                    cliente.setId_cliente(id_cliente);
-                    cliente.setEmail_cliente(email_cliente);
-                    cliente.setFono_cliente(telefono_cliente);
+                id_mecanico = usuarioDAO.insert(usuario);
+                if(id_mecanico > 0){
+                    mecanico.setId_mecanico(id_mecanico);
+                    mecanico.setEspecialidad_mecanico(especialidad);
                     
-                    clienteDAO.insert(cliente);
+                    mecanicoDAO.insert(mecanico);
                     
                     estado = true;
-                    mensaje = "Los datos del cliente han sido guardados";
+                    mensaje = "Los datos del mecánico han sido guardados";
                 }
             } catch(SQLException e){
                 System.out.println(e.getMessage());
@@ -191,21 +185,20 @@ public class ClientesController extends HttpServlet {
             
         }else{
             
-            usuario.setRut_usuario(rut_cliente);
-            usuario.setNombres_usuario(nombres_cliente);
-            usuario.setApellidos_usuario(apellidos_cliente);
-            usuario.setPerfil_usuario(3);
-            usuario.setId_usuario(id_cliente);
+            usuario.setRut_usuario(rut);
+            usuario.setNombres_usuario(nombres);
+            usuario.setApellidos_usuario(apellidos);
+            usuario.setPerfil_usuario(2);
+            usuario.setId_usuario(id_mecanico);
             try{
                 if(usuarioDAO.update(usuario) > 0){
-                    cliente.setId_cliente(id_cliente);
-                    cliente.setEmail_cliente(email_cliente);
-                    cliente.setFono_cliente(telefono_cliente);
+                    mecanico.setId_mecanico(id_mecanico);
+                    mecanico.setEspecialidad_mecanico(especialidad);
                     
-                    clienteDAO.update(cliente);
+                    mecanicoDAO.update(mecanico);
                     
                     estado = true;
-                    mensaje = "Los datos del cliente han sido guardados";
+                    mensaje = "Los datos del mecánico han sido guardados";
                 }
             } catch(SQLException e){
                 System.out.println(e.getMessage());
@@ -221,51 +214,51 @@ public class ClientesController extends HttpServlet {
     }
     
     
-    protected void editarCliente(HttpServletRequest request, HttpServletResponse response)
+    protected void editarMecanico(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int id_cliente = Integer.parseInt(request.getParameter("id_cliente"));
+        int id_mecanico = Integer.parseInt(request.getParameter("id_mecanico"));
         
-        ClienteDAOImpl clienteDAO = new ClienteDAOImpl();
+        MecanicoDAOImpl mecanicoDAO = new MecanicoDAOImpl();
         UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl();
         
-        ClienteDTO cliente = new ClienteDTO();
+        MecanicoDTO mecanico = new MecanicoDTO();
         UsuarioDTO usuario = new UsuarioDTO();
         
         try{
-            usuario = usuarioDAO.selectById(id_cliente);
-            cliente = clienteDAO.selectById(id_cliente);
+            usuario = usuarioDAO.selectById(id_mecanico);
+            mecanico = mecanicoDAO.selectById(id_mecanico);
         }catch(SQLException e){
             
         }
         
         response.setContentType("text/html;charset=UTF-8");
-        request.setAttribute("id_cliente", id_cliente);
-        request.setAttribute("cliente", cliente);
+        request.setAttribute("id_mecanico", id_mecanico);
+        request.setAttribute("mecanico", mecanico);
         request.setAttribute("usuario", usuario);
-        request.getRequestDispatcher("taller/views/mantenedores/clientes/form_cliente.jsp").forward(request, response);
+        request.getRequestDispatcher("taller/views/mantenedores/mecanicos/form_mecanico.jsp").forward(request, response);
     }
     
     
-    protected void eliminarCliente(HttpServletRequest request, HttpServletResponse response)
+    protected void eliminarMecanico(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int id_cliente = Integer.parseInt(request.getParameter("id_cliente"));
+        int id_mecanico = Integer.parseInt(request.getParameter("id_mecanico"));
         
         boolean estado = false;
         String mensaje = "";
         
-        ClienteDAOImpl clienteDAO = new ClienteDAOImpl();
+        MecanicoDAOImpl mecanicoDAO = new MecanicoDAOImpl();
         UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl();
         
         try{
-            if(clienteDAO.delete(id_cliente) > 0){
-                usuarioDAO.delete(id_cliente);
+            if(mecanicoDAO.delete(id_mecanico) > 0){
+                usuarioDAO.delete(id_mecanico);
                 estado = true;
-                mensaje = "Cliente eliminado correctamente";
+                mensaje = "Mecánico eliminado correctamente";
             }else{
                 estado = false;
-                mensaje = "Hubo un problema al eliminar al cliente. Intente nuevamente";
+                mensaje = "Hubo un problema al eliminar al mecánico. Intente nuevamente";
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -281,6 +274,5 @@ public class ClientesController extends HttpServlet {
         out.println(respuesta);
         
     }
-    
 
 }

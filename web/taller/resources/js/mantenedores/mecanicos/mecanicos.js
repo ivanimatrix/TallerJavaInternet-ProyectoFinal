@@ -1,35 +1,35 @@
 
 
-var Clientes = {
+var Mecanicos = {
     
     
     initBandeja : function(){
         
         $.ajax({
-            url : '/ProyectoTallerMecanico/ClientesController',
+            url : BASE_URI + 'MecanicosController',
             type : 'get',
             dataType : 'html',
             async : false,
-            data : {action : 'listadoClientes'},
+            data : {action : 'listadoMecanicos'},
             success : function(response){
-                $("#contenedor-grilla-clientes").html(response);
+                $("#contenedor-grilla-mecanicos").html(response);
             }
         });
         
     },
     
     
-    nuevoCliente : function(){
-        Modal.open('/ProyectoTallerMecanico/ClientesController?action=nuevoCliente','Nuevo Cliente');
+    nuevoMecanico : function(){
+        Modal.open('/ProyectoTallerMecanico/MecanicosController?action=nuevoMecanico','Nuevo Mecánico');
     },
     
     
-    editarCliente : function(cliente){
-        Modal.open('/ProyectoTallerMecanico/ClientesController?action=editarCliente&id_cliente='+cliente,'Nuevo Cliente');
+    editarMecanico : function(cliente){
+        Modal.open('/ProyectoTallerMecanico/MecanicosController?action=editarMecanico&id_mecanico='+cliente,'Editar Mecánico');
     },
     
     
-    guardarCliente : function(form, btn){
+    guardarMecanico : function(form, btn){
         var btnText = $(btn).prop('disabled', true).html();
         $(btn).html('Guardando... <i class="fa fa-spin fa-spinner"></i>');
         
@@ -43,7 +43,7 @@ var Clientes = {
         }else{
             var formulario = $(form).serializeArray();
             $.ajax({
-                url : '/ProyectoTallerMecanico/ClientesController?action=guardarCliente',
+                url : '/ProyectoTallerMecanico/MecanicosController?action=guardarMecanico',
                 type : 'post',
                 dataType : 'json',
                 data : formulario,
@@ -51,7 +51,7 @@ var Clientes = {
                     if(response.estado === true){
                         Modal.success(response.mensaje, function(){
                             Modal.closeAll();
-                            Clientes.initBandeja();
+                            Mecanicos.initBandeja();
                         });
                     }else{
                         Modal.danger(response.mensaje, function(){
@@ -69,17 +69,17 @@ var Clientes = {
     },
     
     
-    eliminarCliente : function(cliente){
-        Modal.confirm("Desea eliminar este cliente?", function(){
+    eliminarMecanico : function(mecanico){
+        Modal.confirm("Desea eliminar este mecánico?", function(){
             $.ajax({
-                url : BASE_URI + 'ClientesController?action=eliminarCliente',
+                url : BASE_URI + 'MecanicosController?action=eliminarMecanico',
                 type : 'post',
                 dataType : 'json',
-                data : {id_cliente : cliente},
+                data : {id_mecanico : mecanico},
                 success : function(response){
                     if(response.estado === true){
                         Modal.success(response.mensaje, function(){
-                            Clientes.initBandeja();
+                            Mecanicos.initBandeja();
                         });
                     }else{
                         Modal.danger(response.mensaje);

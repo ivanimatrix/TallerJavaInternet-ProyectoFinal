@@ -1,4 +1,7 @@
 
+const BASE_URI = '/ProyectoTallerMecanico/';
+
+
 
 function limpiarFormularioErrores(){
     $(".has-error").each(function(){

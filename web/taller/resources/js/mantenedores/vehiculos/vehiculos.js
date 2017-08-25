@@ -1,35 +1,35 @@
 
 
-var Clientes = {
+var Vehiculos = {
     
     
     initBandeja : function(){
         
         $.ajax({
-            url : '/ProyectoTallerMecanico/ClientesController',
+            url : BASE_URI + 'VehiculosController',
             type : 'get',
             dataType : 'html',
             async : false,
-            data : {action : 'listadoClientes'},
+            data : {action : 'listadoVehiculos'},
             success : function(response){
-                $("#contenedor-grilla-clientes").html(response);
+                $("#contenedor-grilla-vehiculos").html(response);
             }
         });
         
     },
     
     
-    nuevoCliente : function(){
-        Modal.open('/ProyectoTallerMecanico/ClientesController?action=nuevoCliente','Nuevo Cliente');
+    nuevoVehiculo : function(){
+        Modal.open(BASE_URI + 'VehiculosController?action=nuevoVehiculo','Nuevo Vehículo');
     },
     
     
-    editarCliente : function(cliente){
-        Modal.open('/ProyectoTallerMecanico/ClientesController?action=editarCliente&id_cliente='+cliente,'Nuevo Cliente');
+    editarVehiculo : function(vehiculo){
+        Modal.open(BASE_URI + 'VehiculosController?action=editarVehiculo&id_vehiculo='+vehiculo,'Editar Vehículo');
     },
     
     
-    guardarCliente : function(form, btn){
+    guardarVehiculo : function(form, btn){
         var btnText = $(btn).prop('disabled', true).html();
         $(btn).html('Guardando... <i class="fa fa-spin fa-spinner"></i>');
         
@@ -43,7 +43,7 @@ var Clientes = {
         }else{
             var formulario = $(form).serializeArray();
             $.ajax({
-                url : '/ProyectoTallerMecanico/ClientesController?action=guardarCliente',
+                url : BASE_URI + 'VehiculosController?action=guardarVehiculo',
                 type : 'post',
                 dataType : 'json',
                 data : formulario,
@@ -51,7 +51,7 @@ var Clientes = {
                     if(response.estado === true){
                         Modal.success(response.mensaje, function(){
                             Modal.closeAll();
-                            Clientes.initBandeja();
+                            Vehiculos.initBandeja();
                         });
                     }else{
                         Modal.danger(response.mensaje, function(){
@@ -69,17 +69,17 @@ var Clientes = {
     },
     
     
-    eliminarCliente : function(cliente){
-        Modal.confirm("Desea eliminar este cliente?", function(){
+    eliminarVehiculo : function(vehiculo){
+        Modal.confirm("Desea eliminar este vehículo?", function(){
             $.ajax({
-                url : BASE_URI + 'ClientesController?action=eliminarCliente',
+                url : BASE_URI + 'VehiculosController?action=eliminarVehiculo',
                 type : 'post',
                 dataType : 'json',
-                data : {id_cliente : cliente},
+                data : {id_vehiculo : vehiculo},
                 success : function(response){
                     if(response.estado === true){
                         Modal.success(response.mensaje, function(){
-                            Clientes.initBandeja();
+                            Vehiculos.initBandeja();
                         });
                     }else{
                         Modal.danger(response.mensaje);

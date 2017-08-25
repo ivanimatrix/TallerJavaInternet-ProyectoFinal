@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import models.UsuarioDTO;
@@ -55,13 +56,76 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         int rows = 0;
         try{
             conn = (this.userConn != null)?this.userConn:Conexion.getConnection();
-            stmt = conn.prepareStatement(SQL_INSERT);
+            stmt = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, usuario.getRut_usuario());
             stmt.setString(2, usuario.getNombres_usuario());
             stmt.setString(3, usuario.getApellidos_usuario());
             stmt.setString(4, usuario.getPass_usuario());
             stmt.setInt(5, usuario.getPerfil_usuario());
 
+            stmt.executeUpdate();
+            
+            ResultSet rs = stmt.getGeneratedKeys();
+            if(rs.next()){
+                rows = rs.getInt(1);
+            }
+
+        }catch(SQLException e){
+            rows = 0;
+            System.out.println(e.getMessage());
+        }
+        finally{
+            Conexion.close(stmt);
+            if(this.userConn == null){
+                Conexion.close(conn);
+            }
+        }
+
+        return rows;
+    }
+    
+    
+    @Override
+    public int update(UsuarioDTO usuario) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int rows = 0;
+        try{
+            String SQL_UPDATE = "update usuario set rut_usuario = ?, nombres_usuario = ?, apellidos_usuario = ?, perfil_usuario = ?  where id_usuario = ?";
+            conn = (this.userConn != null)?this.userConn:Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_UPDATE);
+            stmt.setString(1, usuario.getRut_usuario());
+            stmt.setString(2, usuario.getNombres_usuario());
+            stmt.setString(3, usuario.getApellidos_usuario());
+            stmt.setInt(4, usuario.getPerfil_usuario());
+            stmt.setInt(5, usuario.getId_usuario());
+            rows = stmt.executeUpdate();
+
+        }catch(SQLException e){
+            rows = 0;
+            System.out.println(e.getMessage());
+        }
+        finally{
+            Conexion.close(stmt);
+            if(this.userConn == null){
+                Conexion.close(conn);
+            }
+        }
+
+        return rows;
+    }
+    
+    
+    @Override
+    public int delete(int id_usuario) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int rows = 0;
+        try{
+            String SQL_DELETE = "delete from usuario where id_usuario = ?";
+            conn = (this.userConn != null)?this.userConn:Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_DELETE);
+            stmt.setInt(1, id_usuario);
             rows = stmt.executeUpdate();
 
         }catch(SQLException e){
@@ -130,6 +194,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             stmt.setInt(1, id_usuario);
             rs = stmt.executeQuery();
             while(rs.next()){
+                usuarioDTO = new UsuarioDTO();
                 usuarioDTO.setId_usuario(rs.getInt("id_usuario"));
                 usuarioDTO.setRut_usuario(rs.getString("rut_usuario"));
                 usuarioDTO.setNombres_usuario(rs.getString("nombres_usuario"));
@@ -163,7 +228,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             stmt.setString(2, pass_usuario);
             rs = stmt.executeQuery();
             while(rs.next()){
-                System.out.println("id " + rs.getInt("id_usuario"));
                 usuarioDTO = new UsuarioDTO();
                 usuarioDTO.setId_usuario(rs.getInt("id_usuario"));
                 usuarioDTO.setRut_usuario(rs.getString("rut_usuario"));

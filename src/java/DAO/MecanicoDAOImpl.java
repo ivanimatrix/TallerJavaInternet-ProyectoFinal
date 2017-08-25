@@ -11,37 +11,34 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import models.ClienteDTO;
+import models.MecanicoDTO;
 
 /**
  *
  * @author ivanimatrix
  */
-public class ClienteDAOImpl implements ClienteDAO {
+public class MecanicoDAOImpl implements MecanicoDAO{
     
     private Connection userConn;
 
-    public ClienteDAOImpl() {
+    public MecanicoDAOImpl() {
     }
 
-    public ClienteDAOImpl(Connection userConn) {
+    public MecanicoDAOImpl(Connection userConn) {
         this.userConn = userConn;
     }
-    
-    
 
     @Override
-    public int insert(ClienteDTO cliente) throws SQLException {
+    public int insert(MecanicoDTO mecanico) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try{
-            String SQL_INSERT = "insert into cliente(id_cliente, email_cliente, fono_cliente) values(?,?,?)";
+            String SQL_INSERT = "insert into mecanico(id_mecanico, especialidad_mecanico) values(?,?)";
             conn = (this.userConn != null)?this.userConn:Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setInt(1, cliente.getId_cliente());
-            stmt.setString(2, cliente.getEmail_cliente());
-            stmt.setString(3, cliente.getFono_cliente());
+            stmt.setInt(1, mecanico.getId_mecanico());
+            stmt.setString(2, mecanico.getEspecialidad_mecanico());
 
             rows = stmt.executeUpdate();
 
@@ -57,21 +54,19 @@ public class ClienteDAOImpl implements ClienteDAO {
         }
 
         return rows;
-        
     }
 
     @Override
-    public int update(ClienteDTO cliente) throws SQLException {
+    public int update(MecanicoDTO mecanico) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try{
-            String SQL_UPDATE = "update cliente set email_cliente= ?, fono_cliente = ? where id_cliente = ?";
+            String SQL_UPDATE = "update mecanico set especialidad_mecanico = ? where id_mecanico = ?";
             conn = (this.userConn != null)?this.userConn:Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, cliente.getEmail_cliente());
-            stmt.setString(2, cliente.getFono_cliente());
-            stmt.setInt(3, cliente.getId_cliente());
+            stmt.setString(1, mecanico.getEspecialidad_mecanico());
+            stmt.setInt(2, mecanico.getId_mecanico());
             rows = stmt.executeUpdate();
 
         }catch(SQLException e){
@@ -89,15 +84,15 @@ public class ClienteDAOImpl implements ClienteDAO {
     }
 
     @Override
-    public int delete(int id_cliente) throws SQLException {
+    public int delete(int id_mecanico) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try{
-            String SQL_DELETE = "delete from cliente where id_cliente = ?";
+            String SQL_DELETE = "delete from mecanico where id_mecanico = ?";
             conn = (this.userConn != null)?this.userConn:Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, id_cliente);
+            stmt.setInt(1, id_mecanico);
             rows = stmt.executeUpdate();
 
         }catch(SQLException e){
@@ -115,23 +110,22 @@ public class ClienteDAOImpl implements ClienteDAO {
     }
 
     @Override
-    public List<ClienteDTO> select() throws SQLException {
+    public List<MecanicoDTO> select() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ClienteDTO clienteDTO = null;
-        List<ClienteDTO> clientes = new ArrayList<ClienteDTO>();
+        MecanicoDTO mecanicoDTO = null;
+        List<MecanicoDTO> mecanicos = new ArrayList<MecanicoDTO>();
         try{
-            String SQL_SELECT = "select id_cliente, email_cliente, fono_cliente from cliente";
+            String SQL_SELECT = "select id_mecanico, especialidad_mecanico from mecanico";
             conn = (this.userConn!=null)?this.userConn:Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while(rs.next()){
-                clienteDTO = new ClienteDTO();
-                clienteDTO.setId_cliente(rs.getInt("id_cliente"));
-                clienteDTO.setEmail_cliente(rs.getString("email_cliente"));
-                clienteDTO.setFono_cliente(rs.getString("fono_cliente"));
-                clientes.add(clienteDTO);
+                mecanicoDTO = new MecanicoDTO();
+                mecanicoDTO.setId_mecanico(rs.getInt("id_mecanico"));
+                mecanicoDTO.setEspecialidad_mecanico(rs.getString("especialidad_mecanico"));
+                mecanicos.add(mecanicoDTO);
 
             }
         }
@@ -143,26 +137,25 @@ public class ClienteDAOImpl implements ClienteDAO {
             }
         }
 
-        return clientes;
+        return mecanicos;
     }
 
     @Override
-    public ClienteDTO selectById(int id_cliente) throws SQLException {
+    public MecanicoDTO selectById(int id_mecanico) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ClienteDTO clienteDTO = null;
+        MecanicoDTO mecanicoDTO = null;
         try{
-            String SQL_SELECT = "select id_cliente, email_cliente, fono_cliente from cliente where id_cliente = ? limit 1";
+            String SQL_SELECT = "select id_mecanico, especialidad_mecanico from mecanico where id_mecanico = ? limit 1";
             conn = (this.userConn!=null)?this.userConn:Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
-            stmt.setInt(1, id_cliente);
+            stmt.setInt(1, id_mecanico);
             rs = stmt.executeQuery();
             while(rs.next()){
-                clienteDTO = new ClienteDTO();
-                clienteDTO.setId_cliente(rs.getInt("id_cliente"));
-                clienteDTO.setEmail_cliente(rs.getString("email_cliente"));
-                clienteDTO.setFono_cliente(rs.getString("fono_cliente"));
+                mecanicoDTO = new MecanicoDTO();
+                mecanicoDTO.setId_mecanico(rs.getInt("id_mecanico"));
+                mecanicoDTO.setEspecialidad_mecanico(rs.getString("especialidad_mecanico"));
 
             }
         }
@@ -174,17 +167,17 @@ public class ClienteDAOImpl implements ClienteDAO {
             }
         }
 
-        return clienteDTO;
+        return mecanicoDTO;
     }
 
     @Override
-    public int contarClientes() throws SQLException {
+    public int contarMecanicos() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int total = 0;
         try{
-            String SQL_SELECT = "select count(*) as total from cliente";
+            String SQL_SELECT = "select count(*) as total from mecanico";
             conn = (this.userConn!=null)?this.userConn:Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
@@ -202,5 +195,6 @@ public class ClienteDAOImpl implements ClienteDAO {
 
         return total;
     }
+    
     
 }

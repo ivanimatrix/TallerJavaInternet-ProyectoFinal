@@ -24,8 +24,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mantenedores <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="/ProyectoTallerMecanico/ClientesController?action=indexClientes">Clientes</a></li>
-                        <li><a href="#">Mecánicos</a></li>
-                        <li><a href="#">Vehículos</a></li>
+                        <li><a href="/ProyectoTallerMecanico/MecanicosController?action=indexMecanicos">Mecánicos</a></li>
+                        <li><a href="/ProyectoTallerMecanico/VehiculosController?action=indexVehiculos">Vehículos</a></li>
                     </ul>
                 </li>
                 <%}%>
@@ -34,9 +34,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%=user.getNombres_usuario()%> <%=user.getApellidos_usuario()%> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Mi cuenta</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
+                        <li><a href="/ProyectoTallerMecanico/UsuarioController?action=miCuenta">Mi cuenta</a></li>
                         <li class="divider"></li>
                         <li><a href="javascript:void(0);" onclick="cerrarSesion();">Cerrar Sesión</a></li>
                     </ul>

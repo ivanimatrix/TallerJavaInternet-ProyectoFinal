@@ -20,6 +20,14 @@
         <servlet-name>ClientesController</servlet-name>
         <servlet-class>controllers.ClientesController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MecanicosController</servlet-name>
+        <servlet-class>controllers.MecanicosController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VehiculosController</servlet-name>
+        <servlet-class>controllers.VehiculosController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>ClientesController</servlet-name>
         <url-pattern>/ClientesController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MecanicosController</servlet-name>
+        <url-pattern>/MecanicosController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VehiculosController</servlet-name>
+        <url-pattern>/VehiculosController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -33,19 +33,23 @@ public class UsuarioController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UsuarioController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UsuarioController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        String action = request.getParameter("action");
+        
+        switch(action){
+            case "loginUsuario":
+                loginUsuario(request, response);
+                break;
+                
+            case "logoutUsuario" : 
+                logoutUsuario(request, response);
+                break;
+            
+            case "miCuenta" : 
+                miCuenta(request, response);
+                break;
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,20 +78,9 @@ public class UsuarioController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        processRequest(request, response);
         
-        String action = request.getParameter("action");
         
-        switch(action){
-            case "loginUsuario":
-                loginUsuario(request, response);
-                break;
-                
-            case "logoutUsuario" : 
-                logoutUsuario(request, response);
-                break;
-            
-        }
     }
 
     /**
@@ -151,6 +144,12 @@ public class UsuarioController extends HttpServlet {
         out.println(respuesta);
         
         
+    }
+    
+    
+    protected void miCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        
+    
     }
 
 }
