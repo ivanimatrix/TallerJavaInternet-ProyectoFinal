@@ -97,7 +97,7 @@ public class ClienteDAOImpl implements ClienteDAO {
             String SQL_DELETE = "delete from cliente where id_cliente = ?";
             conn = (this.userConn != null)?this.userConn:Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(3, id_cliente);
+            stmt.setInt(1, id_cliente);
             rows = stmt.executeUpdate();
 
         }catch(SQLException e){
@@ -122,14 +122,15 @@ public class ClienteDAOImpl implements ClienteDAO {
         ClienteDTO clienteDTO = null;
         List<ClienteDTO> clientes = new ArrayList<ClienteDTO>();
         try{
-            String SQL_SELECT = "select id_cliente, email_cliente, telefono_cliente from cliente";
+            String SQL_SELECT = "select id_cliente, email_cliente, fono_cliente from cliente";
             conn = (this.userConn!=null)?this.userConn:Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while(rs.next()){
+                clienteDTO = new ClienteDTO();
                 clienteDTO.setId_cliente(rs.getInt("id_cliente"));
                 clienteDTO.setEmail_cliente(rs.getString("email_cliente"));
-                clienteDTO.setFono_cliente(rs.getString("telefono_cliente"));
+                clienteDTO.setFono_cliente(rs.getString("fono_cliente"));
                 clientes.add(clienteDTO);
 
             }
@@ -152,14 +153,15 @@ public class ClienteDAOImpl implements ClienteDAO {
         ResultSet rs = null;
         ClienteDTO clienteDTO = null;
         try{
-            String SQL_SELECT = "select id_cliente, email_cliente, telefono_cliente from cliente";
+            String SQL_SELECT = "select id_cliente, email_cliente, fono_cliente from cliente";
             conn = (this.userConn!=null)?this.userConn:Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while(rs.next()){
+                clienteDTO = new ClienteDTO();
                 clienteDTO.setId_cliente(rs.getInt("id_cliente"));
                 clienteDTO.setEmail_cliente(rs.getString("email_cliente"));
-                clienteDTO.setFono_cliente(rs.getString("telefono_cliente"));
+                clienteDTO.setFono_cliente(rs.getString("fono_cliente"));
 
             }
         }

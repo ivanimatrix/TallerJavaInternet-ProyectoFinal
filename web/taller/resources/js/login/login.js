@@ -26,7 +26,7 @@ var Login = {
                 dataType : 'json',
                 type : 'post',
                 success : function(response){
-                    if(response.estado == true){
+                    if(response.estado === true){
                         window.location.href = "/ProyectoTallerMecanico/HomeController";
                     }else{
                         $(btn).html(btnText).prop('disabled',false);

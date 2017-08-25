@@ -6,6 +6,7 @@
 package controllers;
 
 import DAO.ClienteDAOImpl;
+import DAO.VehiculoDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -36,7 +37,7 @@ public class HomeController extends HttpServlet {
         
         HttpSession sesion = request.getSession();
         UsuarioDTO user = (UsuarioDTO) sesion.getAttribute("usuario");
-        
+        System.out.println(user.getPerfil_usuario());
         switch (user.getPerfil_usuario()) {
             case 1:
                 int total_clientes = 0;
@@ -47,9 +48,17 @@ public class HomeController extends HttpServlet {
                     System.out.println(e.getMessage());
                 }
                 
-                System.out.println("Total clientes: " + total_clientes);
+                int total_vehiculos = 0;
+                try{
+                    VehiculoDAOImpl vehiculoDAO = new VehiculoDAOImpl();
+                    total_vehiculos = vehiculoDAO.contarVehiculos();
+                }catch(SQLException e){
+                    System.out.println(e.getMessage());
+                }
+                
                 
                 request.setAttribute("total_clientes", total_clientes);
+                request.setAttribute("total_vehiculos", total_vehiculos);
                 request.getRequestDispatcher("taller/views/home/administrador.jsp").forward(request, response);
                 break;
             case 2:
@@ -77,7 +86,7 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

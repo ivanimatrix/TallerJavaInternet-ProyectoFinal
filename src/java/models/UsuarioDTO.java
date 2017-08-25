@@ -24,7 +24,7 @@ public class UsuarioDTO {
     }
     
     public UsuarioDTO(int id_usuario){
-            this.id_usuario = id_usuario;	
+        this.id_usuario = id_usuario;	
     }
 
     public UsuarioDTO(int id_usuario, String rut_usuario, String pass_usuario, String nombres_usuario, String apellidos_usuario, int perfil_usuario) {

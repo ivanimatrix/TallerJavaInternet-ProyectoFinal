@@ -13,7 +13,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="col-xs-12 text-right">
-                                <button type="button" class="btn btn-success" onclick="" > Nuevo Cliente</button>
+                                <button type="button" class="btn btn-success" onclick="Clientes.nuevoCliente();" > Nuevo Cliente</button>
                             </div>
                             <div class="col-xs-12">
                                 <div class="">
