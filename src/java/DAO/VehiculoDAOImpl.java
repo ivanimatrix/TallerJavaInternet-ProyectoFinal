@@ -205,6 +205,7 @@ public class VehiculoDAOImpl implements VehiculoDAO{
             stmt.setString(1, patente_vehiculo);
             rs = stmt.executeQuery();
             while(rs.next()){
+                vehiculoDTO = new VehiculoDTO();
                 vehiculoDTO.setId_vehiculo(rs.getInt("id_vehiculo"));
                 vehiculoDTO.setPatente_vehiculo(rs.getString("patente_vehiculo"));
                 vehiculoDTO.setMarca_vehiculo(rs.getString("marca_vehiculo"));

@@ -5,8 +5,8 @@
  */
 package controllers;
 
-import DAO.ClienteDAOImpl;
-import DAO.MecanicoDAOImpl;
+import DAO.RevisionDAOImpl;
+import DAO.UsuarioDAOImpl;
 import DAO.VehiculoDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,14 +15,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import models.UsuarioDTO;
+import models.VehiculoDTO;
 
 /**
  *
  * @author ivanimatrix
  */
-public class HomeController extends HttpServlet {
+public class RevisionesController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,52 +36,19 @@ public class HomeController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession sesion = request.getSession();
-        UsuarioDTO user = (UsuarioDTO) sesion.getAttribute("usuario");
-        System.out.println(user.getPerfil_usuario());
-        switch (user.getPerfil_usuario()) {
-            case 1:
-                int total_clientes = 0;
-                try{
-                    ClienteDAOImpl clienteDAO = new ClienteDAOImpl();
-                    total_clientes = clienteDAO.contarClientes();
-                }catch(SQLException e){
-                    System.out.println(e.getMessage());
-                }
-                
-                int total_vehiculos = 0;
-                try{
-                    VehiculoDAOImpl vehiculoDAO = new VehiculoDAOImpl();
-                    total_vehiculos = vehiculoDAO.contarVehiculos();
-                }catch(SQLException e){
-                    System.out.println(e.getMessage());
-                }
-                
-                int total_mecanicos = 0;
-                try{
-                    MecanicoDAOImpl mecanicoDAO = new MecanicoDAOImpl();
-                    total_mecanicos = mecanicoDAO.contarMecanicos();
-                }catch(SQLException e){
-                    System.out.println(e.getMessage());
-                }
-                
-                
-                request.setAttribute("total_clientes", total_clientes);
-                request.setAttribute("total_vehiculos", total_vehiculos);
-                request.setAttribute("total_mecanicos", total_mecanicos);
-                request.getRequestDispatcher("taller/views/home/administrador.jsp").forward(request, response);
-                break;
-            case 2:
-                request.getRequestDispatcher("taller/views/home/mecanico.jsp").forward(request, response);
-                break;
-            case 3:
-                request.getRequestDispatcher("taller/views/home/cliente.jsp").forward(request, response);
-                break;
-            default:
-                request.getRequestDispatcher("taller/views/404.jsp").forward(request, response);
-                break;
-        }
+        String action = request.getParameter("action");
         
+        switch (action){
+            
+            case "indexRevisiones" :
+                request.getRequestDispatcher("taller/views/revisiones/bandeja_revisiones.jsp").forward(request, response);
+                break;
+                
+            case "buscarPatente" :
+                buscarPatente(request, response);
+                break;
+            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -110,7 +77,7 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -122,5 +89,36 @@ public class HomeController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    protected void buscarPatente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String patente = request.getParameter("patente");
+        
+        VehiculoDAOImpl vehiculoDAO = new VehiculoDAOImpl();
+        UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl();
+        RevisionDAOImpl revisionDAO = new RevisionDAOImpl();
+        
+        VehiculoDTO vehiculo = null;
+        
+        try{
+            vehiculo = vehiculoDAO.selectByPatente(patente);
+            if(vehiculo != null){
+                UsuarioDTO usuario = usuarioDAO.selectById(vehiculo.getFk_cliente_vehiculo());
+                int totalRevisiones = revisionDAO.contarRevisionesVehiculo(vehiculo.getId_vehiculo());
+
+                request.setAttribute("vehiculo", vehiculo);
+                request.setAttribute("usuario", usuario);
+                request.setAttribute("totalRevisiones", totalRevisiones);
+            }
+            
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            request.setAttribute("mensajeError", "Hubo un error en la búsqueda");
+        }
+
+        request.getRequestDispatcher("taller/views/revisiones/resultado_busqueda.jsp").forward(request, response);
+    }
 
 }
