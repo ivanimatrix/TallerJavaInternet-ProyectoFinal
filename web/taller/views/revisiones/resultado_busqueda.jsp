@@ -15,7 +15,12 @@
         <% } else { %>
         <div class="col-xs-12">
             <div class="well well-sm top-spaced" style="overflow: hidden">
-                <legend>Resultado para <%=vehiculo.getPatente_vehiculo()%> <button type="button" class="btn btn-success btn-sm pull-right" > Nueva Revisión</button></legend>
+                <legend>Resultado para <%=vehiculo.getPatente_vehiculo()%> 
+                    <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-success btn-sm pull-right" onclick="Revisiones.nuevoTrabajo(<%=vehiculo.getId_vehiculo()%>);"> Nuevo Trabajo</button>
+                    <button type="button" class="btn btn-primary btn-sm pull-right" onclick="Revisiones.cargarListadoTrabajoVehiculo(<%=vehiculo.getId_vehiculo()%>);"> Revisar Trabajos</button>
+                    </div>
+                </legend>
                 <div class="col-xs-12 col-md-6 text-left">
                     <div class="form-group">
                         <label>Patente</label>
@@ -26,8 +31,8 @@
                         <p><%=usuario.getNombres_usuario()%> <%=usuario.getApellidos_usuario()%></p>
                     </div>
                     <div class="form-group">
-                        <label>Total de Revisiones</label>
-                        <p><%=request.getAttribute("totalRevisiones")%></p>
+                        <label>Total de Trabajos</label>
+                        <p id="total_trabajos"><%=request.getAttribute("total_trabajos")%></p>
                     </div>
                     
                 </div>

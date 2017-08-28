@@ -16,6 +16,6 @@ footer{
 .top-spaced{margin-top: 15px !important}
 .bottom-spaced{margin-bottom: 15px !important}
 
-.caja-inicio{height: 250px !important}
+.caja-inicio{height: auto !important}
 
 .caja-inicio img{float:left; margin-right: 10px; margin-bottom: 10px;}

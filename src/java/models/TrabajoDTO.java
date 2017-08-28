@@ -12,7 +12,7 @@ package models;
 public class TrabajoDTO {
     
     private int id_trabajo;
-    private int fk_revision_trabajo;
+    private int fk_vehiculo_trabajo;
     private int fk_mecanico_trabajo;
     private String fecha_trabajo;
     private String descripcion_trabajo;
@@ -21,17 +21,17 @@ public class TrabajoDTO {
     public TrabajoDTO() {
     }
 
-    public TrabajoDTO(int fk_revision_trabajo, int fk_mecanico_trabajo, String fecha_trabajo, String descripcion_trabajo, int valor_trabajo) {
-        this.fk_revision_trabajo = fk_revision_trabajo;
+    public TrabajoDTO(int fk_vehiculo_trabajo, int fk_mecanico_trabajo, String fecha_trabajo, String descripcion_trabajo, int valor_trabajo) {
+        this.fk_vehiculo_trabajo = fk_vehiculo_trabajo;
         this.fk_mecanico_trabajo = fk_mecanico_trabajo;
         this.fecha_trabajo = fecha_trabajo;
         this.descripcion_trabajo = descripcion_trabajo;
         this.valor_trabajo = valor_trabajo;
     }
 
-    public TrabajoDTO(int id_trabajo, int fk_revision_trabajo, int fk_mecanico_trabajo, String fecha_trabajo, String descripcion_trabajo, int valor_trabajo) {
+    public TrabajoDTO(int id_trabajo, int fk_vehiculo_trabajo, int fk_mecanico_trabajo, String fecha_trabajo, String descripcion_trabajo, int valor_trabajo) {
         this.id_trabajo = id_trabajo;
-        this.fk_revision_trabajo = fk_revision_trabajo;
+        this.fk_vehiculo_trabajo = fk_vehiculo_trabajo;
         this.fk_mecanico_trabajo = fk_mecanico_trabajo;
         this.fecha_trabajo = fecha_trabajo;
         this.descripcion_trabajo = descripcion_trabajo;
@@ -46,12 +46,12 @@ public class TrabajoDTO {
         this.id_trabajo = id_trabajo;
     }
 
-    public int getFk_revision_trabajo() {
-        return fk_revision_trabajo;
+    public int getFk_vehiculo_trabajo() {
+        return fk_vehiculo_trabajo;
     }
 
-    public void setFk_revision_trabajo(int fk_revision_trabajo) {
-        this.fk_revision_trabajo = fk_revision_trabajo;
+    public void setFk_vehiculo_trabajo(int fk_vehiculo_trabajo) {
+        this.fk_vehiculo_trabajo = fk_vehiculo_trabajo;
     }
 
     public int getFk_mecanico_trabajo() {
