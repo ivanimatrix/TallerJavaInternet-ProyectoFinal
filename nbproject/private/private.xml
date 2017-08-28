@@ -3,25 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/web/taller/views/mantenedores/clientes/grilla_clientes.jsp</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/src/java/controllers/UsuarioController.java</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/src/java/controllers/ClientesController.java</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/web/taller/views/menu.jsp</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/web/taller/resources/js/mantenedores/clientes/clientes.js</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/web/taller/views/mantenedores/clientes/bandeja_clientes.jsp</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/src/java/controllers/HomeController.java</file>
-=======
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/src/java/DAO/ClienteDAOImpl.java</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/web/taller/views/mantenedores/clientes/grilla_clientes.jsp</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/src/java/models/UsuarioDTO.java</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/src/java/controllers/ClientesController.java</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/src/java/DAO/ClienteDAO.java</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/web/taller/resources/js/mantenedores/clientes/clientes.js</file>
+            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/web/taller/views/mantenedores/vehiculos/bandeja_vehiculos.jsp</file>
+            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/web/taller/views/mantenedores/vehiculos/grilla_vehiculos.jsp</file>
             <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/src/java/DAO/UsuarioDAOImpl.java</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/src/java/DAO/UsuarioDAO.java</file>
-            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/web/taller/views/mantenedores/clientes/form_cliente.jsp</file>
->>>>>>> 56783cadda20e08c2c05bf490200deb364e5749e
+            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/web/taller/views/mantenedores/vehiculos/form_vehiculo.jsp</file>
+            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/src/java/controllers/VehiculosController.java</file>
+            <file>file:/home/ivanimatrix/NetBeansProjects/ProyectoTallerMecanico/src/java/DAO/VehiculoDAOImpl.java</file>
         </group>
     </open-files>
 </project-private>
