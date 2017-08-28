@@ -28,6 +28,22 @@
         <servlet-name>VehiculosController</servlet-name>
         <servlet-class>controllers.VehiculosController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TrabajosController</servlet-name>
+        <servlet-class>controllers.TrabajosController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RevisionesController</servlet-name>
+        <servlet-class>controllers.RevisionesController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Contacto</servlet-name>
+        <servlet-class>controllers.Contacto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ContactoController</servlet-name>
+        <servlet-class>controllers.ContactoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -55,6 +71,22 @@
     <servlet-mapping>
         <servlet-name>VehiculosController</servlet-name>
         <url-pattern>/VehiculosController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrabajosController</servlet-name>
+        <url-pattern>/TrabajosController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RevisionesController</servlet-name>
+        <url-pattern>/RevisionesController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contacto</servlet-name>
+        <url-pattern>/Contacto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ContactoController</servlet-name>
+        <url-pattern>/ContactoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

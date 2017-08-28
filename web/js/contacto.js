@@ -43,7 +43,26 @@ function enviarFormulario(formulario, boton){
     }else{
         limpiarCamposRojos();
         $("#contenedor-mensaje-error").addClass('hidden');
-        alert("Por el momento el envio de mensajes se encuentra deshabilitado");
+        //alert("Por el momento el envio de mensajes se encuentra deshabilitado");
+        $.ajax({
+            url : '/ProyectoTallerMecanico/ContactoController?action=enviarFormularioContacto',
+            data : $(formulario).serializeArray(),
+            dataType : 'json',
+            type : 'post',
+            success : function(response){
+                if(response.estado === true){
+                    alert(response.mensaje);
+                    window.location.href = "index.html";
+                }else{
+                    alert(response.mensaje);
+                    $(boton).html(textoBoton).prop('disabled', false);
+                }
+            },
+            error : function(){
+                alert("Error interno");
+                $(boton).html(textoBoton).prop('disabled', false);
+            }
+        });
 
     }
 }

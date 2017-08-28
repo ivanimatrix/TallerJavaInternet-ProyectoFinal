@@ -26,4 +26,6 @@ public interface UsuarioDAO {
         public UsuarioDTO selectById(int id_usuario) throws SQLException;
         
         public UsuarioDTO validarUsuario(String rut_usuario, String pass_usuario) throws SQLException;
+        
+        public int updatePassword(int id_usuario, String pass) throws SQLException;
 }

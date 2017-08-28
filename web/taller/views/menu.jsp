@@ -12,13 +12,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Taller Mecánico</a>
+            <a class="navbar-brand" href="#">Taller Mecánico Esperanza</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul class="nav navbar-nav">
                 <li><a href="/ProyectoTallerMecanico/HomeController">Inicio <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Trabajos</a></li>
+                <% if(user.getPerfil_usuario() == 2){%>
+                <li><a href="/ProyectoTallerMecanico/RevisionesController?action=indexRevisiones">Trabajos</a></li>
+                <% } %>
                 <% if(user.getPerfil_usuario() == 1){%>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mantenedores <span class="caret"></span></a>

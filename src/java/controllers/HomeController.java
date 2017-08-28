@@ -6,6 +6,7 @@
 package controllers;
 
 import DAO.ClienteDAOImpl;
+import DAO.MecanicoDAOImpl;
 import DAO.VehiculoDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,9 +57,18 @@ public class HomeController extends HttpServlet {
                     System.out.println(e.getMessage());
                 }
                 
+                int total_mecanicos = 0;
+                try{
+                    MecanicoDAOImpl mecanicoDAO = new MecanicoDAOImpl();
+                    total_mecanicos = mecanicoDAO.contarMecanicos();
+                }catch(SQLException e){
+                    System.out.println(e.getMessage());
+                }
+                
                 
                 request.setAttribute("total_clientes", total_clientes);
                 request.setAttribute("total_vehiculos", total_vehiculos);
+                request.setAttribute("total_mecanicos", total_mecanicos);
                 request.getRequestDispatcher("taller/views/home/administrador.jsp").forward(request, response);
                 break;
             case 2:

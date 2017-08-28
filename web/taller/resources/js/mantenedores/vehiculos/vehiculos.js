@@ -90,6 +90,11 @@ var Vehiculos = {
                 }
             });
         });
+    },
+    
+    
+    verTrabajosVehiculo : function(vehiculo){
+        Modal.open(BASE_URI + 'RevisionesController?action=listadoTrabajos&id_vehiculo='+vehiculo, 'Listado de Trabajos');
     }
     
     

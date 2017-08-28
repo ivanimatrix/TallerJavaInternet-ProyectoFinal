@@ -36,8 +36,9 @@
             <td class="text-center"><%=usuario.getNombres_usuario()%> <%=usuario.getApellidos_usuario()%></td>
             <td class="text-center">
                 <div class="btn-group-sm">
-                    <button type="button" class="btn btn-success" onclick="Vehiculos.editarVehiculo(<%=vehiculo.getId_vehiculo()%>)"><i class="fa fa-edit"></i></button>
-                    <button type="button" class="btn btn-danger" onclick="Vehiculos.eliminarVehiculo(<%=vehiculo.getId_vehiculo()%>)"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-warning" onclick="Vehiculos.verTrabajosVehiculo(<%=vehiculo.getId_vehiculo()%>)" title="Ver Trabajos"><i class="fa fa-search"></i></button>
+                    <button type="button" class="btn btn-success" onclick="Vehiculos.editarVehiculo(<%=vehiculo.getId_vehiculo()%>)" title="Editar"><i class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger" onclick="Vehiculos.eliminarVehiculo(<%=vehiculo.getId_vehiculo()%>)" title="Eliminar"><i class="fa fa-trash"></i></button>
                 </div>
             </td>
         </tr>

@@ -48,6 +48,14 @@ public class UsuarioController extends HttpServlet {
             case "miCuenta" : 
                 miCuenta(request, response);
                 break;
+                
+            case "guardarMisDatos" : 
+                guardarMisDatos(request, response);
+                break;
+                
+            case "guardarPassword" : 
+                guardarPassword(request, response);
+                break;
         }
         
     }
@@ -149,7 +157,100 @@ public class UsuarioController extends HttpServlet {
     
     protected void miCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         
+        HttpSession session = request.getSession();
+        UsuarioDTO usuarioSession = (UsuarioDTO) session.getAttribute("usuario");
+        UsuarioDTO usuario = null;
+        
+        UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl();
+        
+        try{
+            usuario = usuarioDAO.selectById(usuarioSession.getId_usuario());
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+        request.setAttribute("usuario", usuario);
+        request.getRequestDispatcher("taller/views/usuarios/mi_cuenta.jsp").forward(request, response);
+        
+        
+    }
     
+    
+    protected void guardarMisDatos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        
+        String mensaje = "";
+        boolean estado = false;
+        
+        HttpSession session = request.getSession();
+        UsuarioDTO usuarioSession = (UsuarioDTO) session.getAttribute("usuario");
+        
+        String rut = request.getParameter("rut");
+        String nombres = request.getParameter("nombres");
+        String apellidos = request.getParameter("apellidos");
+        
+        UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl();
+        UsuarioDTO usuario = new UsuarioDTO();
+        try{
+            usuario.setId_usuario(usuarioSession.getId_usuario());
+            usuario.setNombres_usuario(nombres);
+            usuario.setApellidos_usuario(apellidos);
+            usuario.setRut_usuario(rut);
+            usuario.setPerfil_usuario(usuarioSession.getPerfil_usuario());
+            if(usuarioDAO.update(usuario) > 0){
+                estado = true;
+                mensaje = "Sus datos han sido modificados";
+                
+                session.setAttribute("usuario", usuario);
+                
+            }else{
+                mensaje = "Hubo problemas al actualizar la contraseña. Intente nuevamente";
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            mensaje = "Error interno al actualizar la contraseña. Intente nuevamente";
+        }
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        String respuesta = "{\"estado\":" + estado + ", \"mensaje\":\"" + mensaje + "\"}";
+        PrintWriter out = response.getWriter();
+        out.println(respuesta);
+        
+        
+    }
+    
+    
+    protected void guardarPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        
+        String mensaje = "";
+        boolean estado = false;
+        
+        HttpSession session = request.getSession();
+        UsuarioDTO usuarioSession = (UsuarioDTO) session.getAttribute("usuario");
+        
+        String pass = request.getParameter("nueva_pass");
+        
+        UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl();
+        
+        try{
+            if(usuarioDAO.updatePassword(usuarioSession.getId_usuario(), pass) > 0){
+                estado = true;
+                mensaje = "Su contraseña ha sido actualizada";
+            }else{
+                mensaje = "Hubo problemas al actualizar la contraseña. Intente nuevamente";
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            mensaje = "Error interno al actualizar la contraseña. Intente nuevamente";
+        }
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        String respuesta = "{\"estado\":" + estado + ", \"mensaje\":\"" + mensaje + "\"}";
+        PrintWriter out = response.getWriter();
+        out.println(respuesta);
+        
+        
     }
 
 }

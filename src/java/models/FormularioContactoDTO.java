@@ -18,25 +18,36 @@ public class FormularioContactoDTO {
     private String email_contacto;
     private String telefono_contacto;
     private String mensaje_contacto;
+    private String fecha_contacto;
+
+    public String getFecha_contacto() {
+        return fecha_contacto;
+    }
+
+    public void setFecha_contacto(String fecha_contacto) {
+        this.fecha_contacto = fecha_contacto;
+    }
 
     public FormularioContactoDTO() {
     }
 
-    public FormularioContactoDTO(String nombres_contacto, String apellidos_contacto, String email_contacto, String telefono_contacto, String mensaje_contacto) {
+    public FormularioContactoDTO(String nombres_contacto, String apellidos_contacto, String email_contacto, String telefono_contacto, String mensaje_contacto, String fecha_contacto) {
         this.nombres_contacto = nombres_contacto;
         this.apellidos_contacto = apellidos_contacto;
         this.email_contacto = email_contacto;
         this.telefono_contacto = telefono_contacto;
         this.mensaje_contacto = mensaje_contacto;
+        this.fecha_contacto = fecha_contacto;
     }
 
-    public FormularioContactoDTO(int id_contacto, String nombres_contacto, String apellidos_contacto, String email_contacto, String telefono_contacto, String mensaje_contacto) {
+    public FormularioContactoDTO(int id_contacto, String nombres_contacto, String apellidos_contacto, String email_contacto, String telefono_contacto, String mensaje_contacto, String fecha_contacto) {
         this.id_contacto = id_contacto;
         this.nombres_contacto = nombres_contacto;
         this.apellidos_contacto = apellidos_contacto;
         this.email_contacto = email_contacto;
         this.telefono_contacto = telefono_contacto;
         this.mensaje_contacto = mensaje_contacto;
+        this.fecha_contacto = fecha_contacto;
     }
 
     public int getId_contacto() {

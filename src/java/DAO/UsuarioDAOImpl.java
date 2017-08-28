@@ -247,5 +247,32 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return usuarioDTO;
     }
         
+    
+    @Override
+    public int updatePassword(int id_usuario, String pass) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int rows = 0;
+        try{
+            String SQL_UPDATE = "update usuario set pass_usuario = ? where id_usuario = ?";
+            conn = (this.userConn != null)?this.userConn:Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_UPDATE);
+            stmt.setString(1, pass);
+            stmt.setInt(2, id_usuario);
+            rows = stmt.executeUpdate();
+
+        }catch(SQLException e){
+            rows = 0;
+            System.out.println(e.getMessage());
+        }
+        finally{
+            Conexion.close(stmt);
+            if(this.userConn == null){
+                Conexion.close(conn);
+            }
+        }
+
+        return rows;
+    }
 
 }

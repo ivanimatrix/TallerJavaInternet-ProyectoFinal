@@ -54,7 +54,7 @@ create table vehiculo(
   patente_vehiculo varchar(6) not null unique,
   marca_vehiculo varchar(30) not null,
   modelo_vehiculo varchar(30) not null,
-  anyo_vehiculo tinyint not null,
+  anyo_vehiculo int not null,
   fk_cliente_vehiculo bigint unsigned not null,
   CONSTRAINT fk_vehiculo FOREIGN KEY (fk_cliente_vehiculo) REFERENCES cliente(id_cliente)
 ) default charset=utf8 auto_increment=1;
