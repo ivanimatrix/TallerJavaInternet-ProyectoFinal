@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import libs.Validar;
 import models.TrabajoDTO;
 import models.UsuarioDTO;
 import models.VehiculoDTO;
@@ -40,25 +41,41 @@ public class RevisionesController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        Validar validar = new Validar();
         String action = request.getParameter("action");
         
         switch (action){
             
             case "indexRevisiones" :
-                request.getRequestDispatcher("taller/views/revisiones/bandeja_revisiones.jsp").forward(request, response);
+                int[] perfiles1 = {3};
+                if (!validar.validarAccionPerfil(request, response, perfiles1)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    request.getRequestDispatcher("taller/views/revisiones/bandeja_revisiones.jsp").forward(request, response);
                 break;
                 
             case "buscarPatente" :
+                int[] perfiles2 = {3};
+                if (!validar.validarAccionPerfil(request, response, perfiles2)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
                 buscarPatente(request, response);
                 break;
             
             case "nuevoTrabajo" : 
-                nuevoTrabajo(request, response);
+                int[] perfiles3 = {1,3};
+                if (!validar.validarAccionPerfil(request, response, perfiles3)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    nuevoTrabajo(request, response);
                 break;
                 
             case "guardarTrabajo" :
-                guardarTrabajo(request, response);
+                int[] perfiles4 = {1,3};
+                if (!validar.validarAccionPerfil(request, response, perfiles4)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    guardarTrabajo(request, response);
                 break;
                 
             case "listadoTrabajos" :

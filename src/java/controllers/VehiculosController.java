@@ -18,6 +18,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import libs.Validar;
 import models.ClienteDTO;
 import models.MecanicoDTO;
 import models.UsuarioDTO;
@@ -40,33 +42,66 @@ public class VehiculosController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        Validar validar = new Validar();
         String action = request.getParameter("action");
         
         switch(action){
             
             case "indexVehiculos" :
-                request.getRequestDispatcher("taller/views/mantenedores/vehiculos/bandeja_vehiculos.jsp").forward(request, response);
+                int[] perfiles1 = {2,3};
+                if (!validar.validarAccionPerfil(request, response, perfiles1)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    request.getRequestDispatcher("taller/views/mantenedores/vehiculos/bandeja_vehiculos.jsp").forward(request, response);
                 break;
                 
             case "listadoVehiculos" : 
-                listadoVehiculos(request, response);
+                
+                int[] perfiles2 = {2,3};
+                if (!validar.validarAccionPerfil(request, response, perfiles2)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    listadoVehiculos(request, response);
                 break;
                 
             case "nuevoVehiculo" : 
-                nuevoVehiculo(request, response);
+                int[] perfiles3 = {2,3};
+                if (!validar.validarAccionPerfil(request, response, perfiles3)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    nuevoVehiculo(request, response);
                 break;
                 
             case "guardarVehiculo" : 
-                guardarVehiculo(request, response);
+                int[] perfiles4 = {2,3};
+                if (!validar.validarAccionPerfil(request, response, perfiles4)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    guardarVehiculo(request, response);
                 break;
                 
             case "editarVehiculo" : 
-                editarVehiculo(request, response);
+                int[] perfiles5 = {2,3};
+                if (!validar.validarAccionPerfil(request, response, perfiles5)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    editarVehiculo(request, response);
                 break;
                 
             case "eliminarVehiculo" : 
-                eliminarVehiculo(request, response);
+                int[] perfiles6 = {2,3};
+                if (!validar.validarAccionPerfil(request, response, perfiles6)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    eliminarVehiculo(request, response);
+                break;
+            
+            case "indexVehiculosCliente" :
+                int[] perfiles7 = {1,2};
+                if (!validar.validarAccionPerfil(request, response, perfiles7)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    vehiculosCliente(request, response);
                 break;
                 
         }
@@ -275,5 +310,24 @@ public class VehiculosController extends HttpServlet {
         
         out.println(respuesta);
         
+    }
+    
+    
+    protected void vehiculosCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
+        List<VehiculoDTO> vehiculos = null;
+        VehiculoDAOImpl vehiculoDAO = new VehiculoDAOImpl();
+        
+        try{
+            vehiculos = vehiculoDAO.selectByCliente(usuario.getId_usuario());
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        request.setAttribute("vehiculos", vehiculos);
+        request.getRequestDispatcher("taller/views/clientes/bandeja_vehiculos_cliente.jsp").forward(request, response);
     }
 }

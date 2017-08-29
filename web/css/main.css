@@ -19,3 +19,11 @@ footer{
 .caja-inicio{height: auto !important}
 
 .caja-inicio img{float:left; margin-right: 10px; margin-bottom: 10px;}
+
+footer a:visited{
+    color: #444;
+}
+
+footer a:hover{
+    color: #111;
+}

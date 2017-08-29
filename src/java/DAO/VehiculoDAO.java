@@ -29,4 +29,8 @@ public interface VehiculoDAO {
         
     public int contarVehiculos() throws SQLException;
     
+    public int contarVehiculosCliente(int id_cliente) throws SQLException;
+    
+    public List<VehiculoDTO> selectByCliente(int id_cliente) throws SQLException;
+    
 }

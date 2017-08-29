@@ -17,7 +17,9 @@
             <div class="well well-sm top-spaced" style="overflow: hidden">
                 <legend>Resultado para <%=vehiculo.getPatente_vehiculo()%> 
                     <div class="btn-group pull-right">
+                    <% if(usuario.getPerfil_usuario() == 2){ %>
                     <button type="button" class="btn btn-success btn-sm pull-right" onclick="Revisiones.nuevoTrabajo(<%=vehiculo.getId_vehiculo()%>);"> Nuevo Trabajo</button>
+                    <% } %>
                     <button type="button" class="btn btn-primary btn-sm pull-right" onclick="Revisiones.cargarListadoTrabajoVehiculo(<%=vehiculo.getId_vehiculo()%>);"> Revisar Trabajos</button>
                     </div>
                 </legend>

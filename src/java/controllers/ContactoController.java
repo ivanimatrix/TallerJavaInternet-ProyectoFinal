@@ -10,10 +10,12 @@ import DAO.FormularioContactoDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import libs.Validar;
 import models.FormularioContactoDTO;
 
 /**
@@ -33,12 +35,32 @@ public class ContactoController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        Validar validar = new Validar();
         String action = request.getParameter("action");
         
         switch(action) {
             case "enviarFormularioContacto" :
                 enviarFormularioContacto(request, response);
+                break;
+                
+            case "listarFormularioContacto" :
+                int[] perfiles2 = {2,3};
+                if (!validar.validarAccionPerfil(request, response, perfiles2)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    listarFormularioContacto(request, response);
+                break;
+                
+            case "verMensaje" :
+                int[] perfiles3 = {2,3};
+                if (!validar.validarAccionPerfil(request, response, perfiles3)) 
+                    request.getRequestDispatcher("/HomeController").forward(request, response);
+                else
+                    verMensaje(request, response);
+                break;
+                
+            default : 
+                request.getRequestDispatcher("taller/views/404.jsp").forward(request, response);
                 break;
         }
     }
@@ -121,4 +143,42 @@ public class ContactoController extends HttpServlet {
         out.println(respuesta);
         
     }
+    
+    
+    protected void listarFormularioContacto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        FormularioContactoDAOImpl formularioContactoDAO = new FormularioContactoDAOImpl();
+        List<FormularioContactoDTO> listado = null;
+        
+        try{
+            listado = formularioContactoDAO.select();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+        request.setAttribute("listado", listado);
+        request.getRequestDispatcher("taller/views/formularioContacto/bandeja_formulario_contacto.jsp").forward(request, response);
+        
+    }
+    
+    
+    
+    protected void verMensaje(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        int id_mensaje = Integer.parseInt(request.getParameter("id_mensaje"));
+        
+        FormularioContactoDAOImpl formularioContactoDAO = new FormularioContactoDAOImpl();
+        FormularioContactoDTO mensaje = null;
+        
+        try{
+            mensaje = formularioContactoDAO.selectById(id_mensaje);
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+        request.setAttribute("mensaje", mensaje);
+        request.getRequestDispatcher("taller/views/formularioContacto/ver_mensaje_formulario_contacto.jsp").forward(request, response);
+        
+    }
+    
 }

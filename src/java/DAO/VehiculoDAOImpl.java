@@ -253,6 +253,67 @@ public class VehiculoDAOImpl implements VehiculoDAO{
         return total;
     }
     
+    @Override
+    public int contarVehiculosCliente(int id_cliente) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int total = 0;
+        try{
+            String SQL_SELECT = "select count(*) as total from vehiculo where fk_cliente_vehiculo = ?";
+            conn = (this.userConn!=null)?this.userConn:Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT);
+            stmt.setInt(1, id_cliente);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                total = rs.getInt("total");
+            }
+        }
+        finally{
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            if(this.userConn == null){
+                Conexion.close(conn);
+            }
+        }
+
+        return total;
+    }
     
     
+    @Override
+    public List<VehiculoDTO> selectByCliente(int id_cliente) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        VehiculoDTO vehiculoDTO = null;
+        List<VehiculoDTO> vehiculos = new ArrayList<VehiculoDTO>();
+        try{
+            String SQL_SELECT = "select id_vehiculo, patente_vehiculo, marca_vehiculo, modelo_vehiculo, anyo_vehiculo, fk_cliente_vehiculo from vehiculo where fk_cliente_vehiculo = ?";
+            conn = (this.userConn!=null)?this.userConn:Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT);
+            stmt.setInt(1, id_cliente);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                vehiculoDTO = new VehiculoDTO();
+                vehiculoDTO.setId_vehiculo(rs.getInt("id_vehiculo"));
+                vehiculoDTO.setPatente_vehiculo(rs.getString("patente_vehiculo"));
+                vehiculoDTO.setMarca_vehiculo(rs.getString("marca_vehiculo"));
+                vehiculoDTO.setModelo_vehiculo(rs.getString("modelo_vehiculo"));
+                vehiculoDTO.setAnyo_vehiculo(rs.getInt("anyo_vehiculo"));
+                vehiculoDTO.setFk_cliente_vehiculo(rs.getInt("fk_cliente_vehiculo"));
+                vehiculos.add(vehiculoDTO);
+
+            }
+        }
+        finally{
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            if(this.userConn == null){
+                Conexion.close(conn);
+            }
+        }
+
+        return vehiculos;
+    }
 }
