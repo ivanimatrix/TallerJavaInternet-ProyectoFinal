@@ -29,5 +29,5 @@ public interface TrabajoDAO {
     
     public int contarTrabajosVehiculo(int id_vehiculo) throws SQLException;
     
-    
+    public int contarTrabajosMecanico(int id_mecanico) throws SQLException;
 }

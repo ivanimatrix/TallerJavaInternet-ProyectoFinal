@@ -10,10 +10,10 @@
                     
                 </div>
                 <div class="col-xs-12 col-md-4">
-                    <div class="alert alert-success">
-                        <h4><a href="/ProyectoTallerMecanico/MecanicosController?action=indexTrabajosMecanico" class="caja-inicio">Trabajos Realizados</a></h4>
-                        <i class="fa fa-wrench fa-5x"></i>
-                        <span class="badge pull-right fa-5x">${total_trabajos}</span>
+                    <div class="alert alert-info">
+                        <h4><a href="/ProyectoTallerMecanico/VehiculosController?action=indexVehiculos" class="caja-inicio">Vehículos</a></h4>
+                        <i class="fa fa-car fa-5x"></i>
+                        <span class="badge pull-right fa-5x">${total_vehiculos}</span>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-4">

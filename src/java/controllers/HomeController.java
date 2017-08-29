@@ -7,6 +7,7 @@ package controllers;
 
 import DAO.ClienteDAOImpl;
 import DAO.MecanicoDAOImpl;
+import DAO.TrabajoDAOImpl;
 import DAO.VehiculoDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,7 +39,7 @@ public class HomeController extends HttpServlet {
         
         HttpSession sesion = request.getSession();
         UsuarioDTO user = (UsuarioDTO) sesion.getAttribute("usuario");
-        System.out.println(user.getPerfil_usuario());
+        
         switch (user.getPerfil_usuario()) {
             case 1:
                 int total_clientes = 0;
@@ -72,9 +73,29 @@ public class HomeController extends HttpServlet {
                 request.getRequestDispatcher("taller/views/home/administrador.jsp").forward(request, response);
                 break;
             case 2:
+                
+                int total_trabajos = 0;
+                try{
+                    TrabajoDAOImpl trabajoDAO = new TrabajoDAOImpl();
+                    
+                    total_trabajos = trabajoDAO.contarTrabajosMecanico(user.getId_usuario());
+                }catch(SQLException e){
+                    System.out.println(e.getMessage());
+                }
+                
+                request.setAttribute("total_trabajos", total_trabajos);
                 request.getRequestDispatcher("taller/views/home/mecanico.jsp").forward(request, response);
                 break;
             case 3:
+                int total_vehiculos_cliente = 0;
+                try{
+                    VehiculoDAOImpl vehiculoDAO = new VehiculoDAOImpl();
+                    total_vehiculos_cliente = vehiculoDAO.contarVehiculosCliente(user.getId_usuario());
+                }catch(SQLException e){
+                    System.out.println(e.getMessage());
+                }
+                
+                request.setAttribute("total_vehiculos", total_vehiculos_cliente);
                 request.getRequestDispatcher("taller/views/home/cliente.jsp").forward(request, response);
                 break;
             default:

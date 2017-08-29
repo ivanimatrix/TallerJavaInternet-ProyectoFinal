@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.ClienteDTO;
 import models.MecanicoDTO;
 import models.UsuarioDTO;
@@ -67,6 +68,10 @@ public class VehiculosController extends HttpServlet {
                 
             case "eliminarVehiculo" : 
                 eliminarVehiculo(request, response);
+                break;
+            
+            case "indexVehiculosCliente" :
+                vehiculosCliente(request, response);
                 break;
                 
         }
@@ -275,5 +280,24 @@ public class VehiculosController extends HttpServlet {
         
         out.println(respuesta);
         
+    }
+    
+    
+    protected void vehiculosCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
+        List<VehiculoDTO> vehiculos = null;
+        VehiculoDAOImpl vehiculoDAO = new VehiculoDAOImpl();
+        
+        try{
+            vehiculos = vehiculoDAO.selectByCliente(usuario.getId_usuario());
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        request.setAttribute("vehiculos", vehiculos);
+        request.getRequestDispatcher("taller/views/clientes/bandeja_vehiculos_cliente.jsp").forward(request, response);
     }
 }

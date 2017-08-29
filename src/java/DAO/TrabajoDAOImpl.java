@@ -255,4 +255,32 @@ public class TrabajoDAOImpl implements TrabajoDAO {
     }
     
     
+    @Override
+    public int contarTrabajosMecanico(int id_mecanico) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int total = 0;
+        try{
+            String SQL_SELECT = "select count(*) as total from trabajo where fk_mecanico_trabajo = ?";
+            conn = (this.userConn!=null)?this.userConn:Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT);
+            stmt.setInt(1, id_mecanico);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                total = rs.getInt("total");
+            }
+        }
+        finally{
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            if(this.userConn == null){
+                Conexion.close(conn);
+            }
+        }
+
+        return total;
+    }
+    
+    
 }
