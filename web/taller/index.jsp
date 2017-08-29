@@ -36,7 +36,7 @@
                             </div>
                             <div style="margin-bottom: 12px" class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input id="usuario" type="text" class="form-control" name="usuario" value="" placeholder="ej.: 12345678-9">                                        
+                                <input id="usuario" type="text" class="form-control" name="usuario" value="" maxlength="10" placeholder="ej.: 12345678-9">                                        
                             </div>
 
                             <div style="margin-bottom: 12px" class="input-group">
